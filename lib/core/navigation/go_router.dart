@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:imagine_notes/core/navigation/routes.dart';
-import 'package:imagine_notes/features/auth/sign_in/sign_in_page.dart';
-import 'package:imagine_notes/features/splash/bloc/splash_bloc.dart';
-import 'package:imagine_notes/features/splash/bloc/splash_event.dart';
-import 'package:imagine_notes/features/splash/splash_page.dart';
+import 'package:imagine_notes/features/auth/sign_in/presentation/sign_in_page.dart';
+import 'package:imagine_notes/features/auth/sign_up/presentaton/sign_up_page.dart';
+import 'package:imagine_notes/features/home/presentation/home_page.dart';
+import 'package:imagine_notes/features/splash/presentation/splash_page.dart';
 
 class GoRouterHelper {
   static final GoRouterHelper _instance = GoRouterHelper._internal();
@@ -21,21 +20,37 @@ class GoRouterHelper {
         name: Routes.rootRoute.name,
         pageBuilder: (_, state) {
           return _getPage(
-            child: BlocProvider(
-              create: (_) => SplashBloc()..add(SplashStarted()),
-              child: const SplashPage(),
-            ),
+            child: const SplashPage(),
             state: state,
           );
         },
       ),
-      // Admin routes
       GoRoute(
         path: Routes.signIn.path,
         name: Routes.signIn.name,
         pageBuilder: (_, state) {
           return _getPage(
             child: const SignInPage(),
+            state: state,
+          );
+        },
+      ),
+      GoRoute(
+        path: Routes.signUp.path,
+        name: Routes.signUp.name,
+        pageBuilder: (_, state) {
+          return _getPage(
+            child: SignUpPage(),
+            state: state,
+          );
+        },
+      ),
+      GoRoute(
+        path: Routes.home.path,
+        name: Routes.home.name,
+        pageBuilder: (_, state) {
+          return _getPage(
+            child: const HomePage(),
             state: state,
           );
         },
