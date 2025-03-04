@@ -7,8 +7,8 @@ import 'package:imagine_notes/features/auth/sign_up/presentaton/bloc/sign_up_blo
 import 'package:imagine_notes/features/auth/sign_up/presentaton/bloc/sign_up_event.dart';
 import 'package:imagine_notes/features/auth/sign_up/presentaton/bloc/sign_up_state.dart';
 import 'package:imagine_notes/features/common/presentation/buttons/custom_button.dart';
-import 'package:imagine_notes/features/common/presentation/text_field/custom_reactive_textfield.dart';
-import 'package:imagine_notes/features/common/presentation/text_field/password_reactive_field.dart';
+import 'package:imagine_notes/features/common/presentation/text_field/custom_reactive_input.dart';
+import 'package:imagine_notes/features/common/presentation/text_field/password_reactive_input.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:imagine_notes/core/constants/text_styles.dart';
 
@@ -30,7 +30,9 @@ class SignUpPage extends StatelessWidget {
       child: Builder(
         builder: (context) {
           return Scaffold(
-            appBar: AppBar(title: const Text("Registrarse")),
+            appBar: AppBar(
+              title: Text("Registrarse", style: AppTextStyle.titleMedium),
+            ),
             body: BlocListener<SignUpBloc, SignUpState>(
               listener: (context, state) {
                 if (state is SignUpFailure) {
@@ -51,7 +53,7 @@ class SignUpPage extends StatelessWidget {
                         children: [
                           Text('Crear Cuenta', style: AppTextStyle.headlineSmall),
                           const SizedBox(height: 32),
-                          CustomReactiveTextField(
+                          CustomReactiveInput(
                             formControlName: 'email',
                             label: 'Correo electrónico',
                             keyboardType: TextInputType.emailAddress,
@@ -61,7 +63,7 @@ class SignUpPage extends StatelessWidget {
                             },
                           ),
                           const SizedBox(height: 16),
-                          PasswordReactiveField(
+                          PasswordReactiveInput(
                             formControlName: 'password',
                             label: 'Contraseña',
                             validationMessages: {
@@ -70,7 +72,7 @@ class SignUpPage extends StatelessWidget {
                             },
                           ),
                           const SizedBox(height: 16),
-                          PasswordReactiveField(
+                          PasswordReactiveInput(
                             formControlName: 'confirmPassword',
                             label: 'Confirmar contraseña',
                             validationMessages: {

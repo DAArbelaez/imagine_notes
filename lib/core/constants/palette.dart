@@ -13,4 +13,10 @@ class Palette {
   static const Color background = Color(0xFFFBFFF1);
 
   static const Color surface = Color(0xFFF5F5F5);
+
+  static const Color greyLight = Color(0xFFE3E3E3);
+
+  static const Color grey = Color(0xFF8D8F9A);
+
+  static const Color error = Color(0xFFCE2431);
 }
