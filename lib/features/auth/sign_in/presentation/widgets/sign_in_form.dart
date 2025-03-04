@@ -4,8 +4,8 @@ import 'package:imagine_notes/core/constants/text_styles.dart';
 import 'package:imagine_notes/features/auth/sign_in/presentation/bloc/sign_in_bloc.dart';
 import 'package:imagine_notes/features/auth/sign_in/presentation/bloc/sign_in_event.dart';
 import 'package:imagine_notes/features/common/presentation/buttons/custom_button.dart';
-import 'package:imagine_notes/features/common/presentation/text_field/custom_reactive_textfield.dart';
-import 'package:imagine_notes/features/common/presentation/text_field/password_reactive_field.dart';
+import 'package:imagine_notes/features/common/presentation/text_field/custom_reactive_input.dart';
+import 'package:imagine_notes/features/common/presentation/text_field/password_reactive_input.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class SignInForm extends StatelessWidget {
@@ -28,17 +28,18 @@ class SignInForm extends StatelessWidget {
             children: [
               Text('Imagine Notes', style: AppTextStyle.headlineSmall),
               const SizedBox(height: 32),
-              CustomReactiveTextField(
+              CustomReactiveInput(
                 formControlName: 'email',
                 label: 'Correo electrónico',
                 keyboardType: TextInputType.emailAddress,
+                textCapitalization: TextCapitalization.none,
                 validationMessages: {
                   ValidationMessage.required: (_) => 'El correo es obligatorio',
                   ValidationMessage.email: (_) => 'Ingresa un correo válido',
                 },
               ),
               const SizedBox(height: 16),
-              PasswordReactiveField(
+              PasswordReactiveInput(
                 formControlName: 'password',
                 label: 'Contraseña',
                 validationMessages: {

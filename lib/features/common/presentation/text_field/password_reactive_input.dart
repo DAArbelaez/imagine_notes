@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-class PasswordReactiveField extends StatefulWidget {
+class PasswordReactiveInput extends StatefulWidget {
   final String formControlName;
   final String label;
   final Map<String, String Function(Object)>? validationMessages;
 
-  const PasswordReactiveField({
+  const PasswordReactiveInput({
     super.key,
     required this.formControlName,
     required this.label,
@@ -14,10 +14,10 @@ class PasswordReactiveField extends StatefulWidget {
   });
 
   @override
-  State<PasswordReactiveField> createState() => _PasswordReactiveFieldState();
+  State<PasswordReactiveInput> createState() => _PasswordReactiveInputState();
 }
 
-class _PasswordReactiveFieldState extends State<PasswordReactiveField> {
+class _PasswordReactiveInputState extends State<PasswordReactiveInput> {
   bool _obscureText = true;
 
   void _toggleVisibility() {

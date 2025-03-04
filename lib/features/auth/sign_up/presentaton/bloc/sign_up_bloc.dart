@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:imagine_notes/features/auth/sign_up/data/sign_up_repository.dart';
 import 'sign_up_event.dart';
@@ -30,6 +31,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     try {
       await repository.signUp(email: email, password: password);
       emit(SignUpSuccess());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        emit(SignUpFailure('El correo ya está en uso.'));
+      }
     } catch (e) {
       emit(SignUpFailure(e.toString()));
     }
