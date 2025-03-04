@@ -8,14 +8,9 @@ import 'package:imagine_notes/core/navigation/routes.dart';
 import 'package:imagine_notes/features/splash/bloc/splash_bloc.dart';
 import 'package:imagine_notes/features/splash/bloc/splash_state.dart';
 
-class SplashPage extends StatefulWidget {
+class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
-  @override
-  State<SplashPage> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SplashBloc, SplashState>(
