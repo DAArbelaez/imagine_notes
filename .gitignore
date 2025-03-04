@@ -35,3 +35,6 @@ doc/api/
 /android/app/google-services.json
 /env
 /firebase.json
+
+# IntelliJ related
+.idea/
