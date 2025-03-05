@@ -5,9 +5,9 @@ import 'sign_in_event.dart';
 import 'sign_in_state.dart';
 
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
-  final SignInRepository repository = SignInRepositoryImpl();
+  final SignInRepository repository;
 
-  SignInBloc() : super(SignInInitial()) {
+  SignInBloc(this.repository) : super(SignInInitial()) {
     on<OnSignIn>(_onSignInRequested);
     on<OnSignUpPressed>((_, emit) => emit(SignUpNavigate()));
   }

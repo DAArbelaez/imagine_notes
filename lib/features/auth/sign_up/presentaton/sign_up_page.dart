@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:imagine_notes/core/constants/snackbar.dart';
 import 'package:imagine_notes/core/navigation/routes.dart';
+import 'package:imagine_notes/features/auth/sign_up/data/sign_up_repository.dart';
 import 'package:imagine_notes/features/auth/sign_up/presentaton/bloc/sign_up_bloc.dart';
 import 'package:imagine_notes/features/auth/sign_up/presentaton/bloc/sign_up_event.dart';
 import 'package:imagine_notes/features/auth/sign_up/presentaton/bloc/sign_up_state.dart';
@@ -26,7 +27,7 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => SignUpBloc(),
+      create: (_) => SignUpBloc(SignUpRepositoryImpl()),
       child: Builder(
         builder: (context) {
           return Scaffold(

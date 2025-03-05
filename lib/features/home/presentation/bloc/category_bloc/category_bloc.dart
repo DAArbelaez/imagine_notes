@@ -11,10 +11,10 @@ import 'category_state.dart';
 /// When a new category list is retrieved, it emits [CategoryLoadSuccess] with the updated list.
 /// If an error occurs during retrieval, it emits [CategoryLoadFailure] with the error message.
 class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
-  final HomeRepositoryImpl repository = HomeRepositoryImpl();
+  final HomeRepository repository;
   StreamSubscription<List<Category>>? _subscription;
 
-  CategoryBloc() : super(CategoryLoadInProgress()) {
+  CategoryBloc(this.repository) : super(CategoryLoadInProgress()) {
     on<LoadCategories>(_onLoadCategories);
     on<CategoriesUpdated>((event, emit) {
       emit(CategoryLoadSuccess(event.categories));

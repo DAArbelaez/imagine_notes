@@ -20,9 +20,9 @@ abstract class HomeRepository {
 /// Implementation of [HomeRepository] that interacts with Firebase Firestore.
 /// Manages authentication and CRUD operations for notes and categories.
 class HomeRepositoryImpl implements HomeRepository {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseAuth _firebaseAuth;
 
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore;
 
   late final String _userId;
 
@@ -31,13 +31,14 @@ class HomeRepositoryImpl implements HomeRepository {
 
   final String _categoriesCollection = 'categories';
 
-  HomeRepositoryImpl() {
+  HomeRepositoryImpl({FirebaseAuth? firebaseAuth, FirebaseFirestore? firestore})
+      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
+        _firestore = firestore ?? FirebaseFirestore.instance {
     _userId = _firebaseAuth.currentUser!.uid;
   }
 
   @override
   Future<void> logout() async => await _firebaseAuth.signOut();
-
 
   /// Creates a new note in Firestore under the authenticated user's collection.
   @override
@@ -58,7 +59,8 @@ class HomeRepositoryImpl implements HomeRepository {
   /// Deletes a note from Firestore by its unique ID.
   @override
   Future<void> deleteNote(String noteId) async {
-    await _firestore.collection(_notesCollection)
+    await _firestore
+        .collection(_notesCollection)
         .doc(_userId)
         .collection(_notesSubCollection)
         .doc(noteId)
@@ -71,7 +73,8 @@ class HomeRepositoryImpl implements HomeRepository {
   /// - Optionally filters by a specific category if provided.
   @override
   Stream<List<Note>> getNotesStream({String? categoryId}) {
-    Query query = _firestore.collection(_notesCollection)
+    Query query = _firestore
+        .collection(_notesCollection)
         .doc(_userId)
         .collection(_notesSubCollection);
 

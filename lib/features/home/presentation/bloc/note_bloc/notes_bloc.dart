@@ -9,12 +9,12 @@ import 'notes_state.dart';
 /// Manages note-related actions.
 /// Handles loading, adding, updating, deleting, and filtering notes.
 class NotesBloc extends Bloc<NotesEvent, NotesState> {
-  final HomeRepositoryImpl repository = HomeRepositoryImpl();
+  final HomeRepository repository;
   StreamSubscription<List<Note>>? _notesSubscription;
   List<Note> _allNotes = [];
   String _searchQuery = '';
 
-  NotesBloc() : super(NotesLoadInProgress()) {
+  NotesBloc(this.repository) : super(NotesLoadInProgress()) {
     on<LoadNotes>(_onLoadNotes);
     on<AddNote>(_onAddNote);
     on<DeleteNote>(_onDeleteNote);
@@ -32,7 +32,6 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     await _notesSubscription?.cancel();
     try {
       emit(NotesLoadInProgress());
-      await _notesSubscription?.cancel();
       _notesSubscription = repository.getNotesStream(categoryId: event.categoryId).distinct().listen(
             (notes) => add(NotesUpdated(notes)),
             onError: (error) => emit(NotesLoadFailure(error.toString())),

@@ -5,6 +5,7 @@ import 'package:imagine_notes/core/constants/icons.dart';
 import 'package:imagine_notes/core/constants/snackbar.dart';
 import 'package:imagine_notes/core/constants/text_styles.dart';
 import 'package:imagine_notes/core/navigation/routes.dart';
+import 'package:imagine_notes/features/home/data/home_repository.dart';
 import 'package:imagine_notes/features/home/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:imagine_notes/features/home/presentation/bloc/auth_bloc/auth_event.dart';
 import 'package:imagine_notes/features/home/presentation/bloc/auth_bloc/auth_state.dart';
@@ -25,9 +26,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final HomeRepositoryImpl _repository = HomeRepositoryImpl();
+
   String? selectedCategoryId;
 
   void _onCategorySelected(BuildContext context, String? categoryId) {
+    if (selectedCategoryId == categoryId) return;
     setState(() {
       selectedCategoryId = categoryId;
     });
@@ -39,13 +43,13 @@ class _HomePageState extends State<HomePage> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => AuthBloc(),
+          create: (_) => AuthBloc(_repository),
         ),
         BlocProvider(
-          create: (_) => NotesBloc()..add(LoadNotes()),
+          create: (_) => NotesBloc(_repository)..add(LoadNotes()),
         ),
         BlocProvider(
-          create: (_) => CategoryBloc()..add(LoadCategories()),
+          create: (_) => CategoryBloc(_repository)..add(LoadCategories()),
         ),
       ],
       child: BlocListener<AuthBloc, AuthState>(
