@@ -4,9 +4,9 @@ import 'auth_event.dart';
 import 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final HomeRepository repository = HomeRepositoryImpl();
+  final HomeRepository repository;
 
-  AuthBloc() : super(AuthInitial()) {
+  AuthBloc(this.repository) : super(AuthInitial()) {
     on<LogoutRequested>(_onLogoutRequested);
   }
 

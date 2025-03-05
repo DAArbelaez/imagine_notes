@@ -5,9 +5,9 @@ import 'sign_up_event.dart';
 import 'sign_up_state.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
-  final SignUpRepository repository = SignUpRepositoryImpl();
+  final SignUpRepository repository;
 
-  SignUpBloc() : super(SignUpInitial()) {
+  SignUpBloc(this.repository) : super(SignUpInitial()) {
     on<OnSignUp>(_onSignUp);
   }
 
